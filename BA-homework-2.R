@@ -22,6 +22,26 @@ mke<-mutate(mke, month = as.factor(month(mke$date)))
 mke<-mutate(mke, year = as.factor(year(mke$date)))
 head(mke)
 
+ggplot(data = mke)+
+  geom_boxplot(mapping= aes(x=year, y=avg_temp))
+ggsave("temp_year.jpg")
 
+ggplot(data = mke)+
+  geom_boxplot(mapping= aes(x=month, y=avg_temp))
+ggsave("temp_month.jpg")
+
+ggplot(data = mke)+
+  geom_boxplot(mapping= aes(x=day_of_week, y=avg_temp))
+ggsave("temp_wday.jpg")
+
+ggplot(data = mke)+
+  geom_point(mapping= aes(x=date, y=snowfall))
+ggsave("snow_date_point.jpg")
+
+ggplot(data = mke)+
+  geom_line(mapping= aes(x=date, y=snowfall))
+ggsave("snow_date_pline.jpg")
+
+mke<-mutate(mke, total_precipitation = snowfall+rainfall)
 
 save.image("homework2")
