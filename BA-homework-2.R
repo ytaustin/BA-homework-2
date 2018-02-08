@@ -43,5 +43,21 @@ ggplot(data = mke)+
 ggsave("snow_date_pline.jpg")
 
 mke<-mutate(mke, total_precipitation = snowfall+rainfall)
+mke<-mutate(mke, has_snowed = ifelse(snowfall>0,"yes","no"))
+mke<-mutate(mke, has_snowed= as.factor(has_snowed))
+ggplot(data=mke)+
+  geom_boxplot(mapping=aes(x=has_snowed,y=total_precipitation,color=has_snowed))
+ggsave("total_precipitation_has_snowed.jpg")
+
+ggplot(data=mke)+
+  geom_line(mapping = aes(date,avg_wind_speed))
+ggsave("avg_wind_speed_date.jpg")
+ggplot(data=mke)+
+  geom_boxplot(mapping=aes(month,avg_wind_speed))
+ggsave("avg_wind_speed_month.jpg")
+
+ggplot(data=mke, aes(avg_wind_speed,snowfall))+
+  geom_point()
+ggsave("snowfall_avg_wind_speed.jpg")
 
 save.image("homework2")
